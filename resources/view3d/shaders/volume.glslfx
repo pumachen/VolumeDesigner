@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glslfx version="1.0.0" author="PUM4CH3N">
+
+    <!-- TECHNIQUES -->
+    <technique name="Volume">
+        <!-- PROPERTIES -->
+
+        <property name="blend_enabled"      value="true"/>
+        <property name="blend_func"         value="src_alpha,one_minus_src_alpha"/>
+        <property name="cull_face_enabled"  value="true"/>
+        <property name="cull_face_mode"     value="front"/>
+
+        <!-- SHADERS -->
+        <shader type="vertex"               filename="volume/vs.glsl"/>
+        <shader type="fragment"             filename="volume/fs.glsl"/>
+
+    </technique>
+
+    <!-- INPUT VERTEX FORMAT -->
+    <vertexformat name="iVS_Position"       semantic="position"/>
+
+    <!-- TRANSFORM FEEDBACK VERTEX FORMAT -->
+    <feedbackformat name="iFS_PointWS"      semantic="feedback_position"/>
+    <feedbackformat name="iFS_PointCS"      semantic="feedback_position"/>
+
+    <!-- SAMPLERS -->
+	<sampler name="volumeMap"               usage="volume" guiGroup="Volume" texture_wrap_s="clamp_to_edge" texture_wrap_t="clamp_to_edge" texture_wrap_r="clamp_to_edge" texture_min_filter="nearest" texture_mag_filter="nearest"/>
+
+    <!-- MATRICES -->
+    <uniform name="worldMatrix"             semantic="world"/>
+	<uniform name="worldViewProjMatrix"     semantic="worldviewprojection"/>
+	<uniform name="projectionMatrix"        semantic="projection"/>
+    <uniform name="viewInverseMatrix"       semantic="viewinverse"/>
+
+    <!-- SCENE PARAMETERS -->
+    <uniform name="ambientColor"            semantic="ambient"/>
+    <uniform name="Lamp0Enabled"            semantic="light0enabled"/>
+    <uniform name="Lamp0Pos"                semantic="light0position"/>
+    <uniform name="Lamp0Color"              semantic="light0color"/>
+    <uniform name="Lamp0Intensity"          semantic="light0intensity"/>
+    <uniform name="Lamp1Enabled"            semantic="light1enabled"/>
+    <uniform name="Lamp1Pos"                semantic="light1position"/>
+    <uniform name="Lamp1Color"              semantic="light1color"/>
+    <uniform name="Lamp1Intensity"          semantic="light1intensity"/>
+    <uniform name="uvwScale"                semantic="uvwscale"/>
+    <uniform name="displayUVTileOnly"       semantic="renderuvtile"/>
+    <uniform name="uvTileCoords"            semantic="uvtilecoords"/>
+
+    <!-- UNIFORMS -->
+    <uniform name="VolumeRes"               guiGroup="Volume" guiName="Volume Texture Resolution"  default="256" min="8"  guiWidget="slider" guiMax="256"/>
+    <uniform name="MarchingSteps"               guiGroup="Volume" guiName="Marching Steps"  default="64" min="4"  guiWidget="slider" guiMax="128"/>
+    <uniform name="Tiling"                  guiGroup="Volume"  guiName="Tiling"                default="1" min="0.01"                     guiWidget="slider" guiMax="10"/>
+    <uniform name="Offset"                  guiGroup="Volume"  guiName="Offset"                default="0" min="-1"                     guiWidget="slider" guiMax="1"/>
+    <uniform name="Density"                  guiGroup="Volume"  guiName="Density"                default="1" min="0"                     guiWidget="slider" guiMax="10"/>
+    <uniform name="ShadowSteps"               guiGroup="Shadow" guiName="Shadow Steps"  default="64" min="4"  guiWidget="slider" guiMax="128"/>
+    <uniform name="ShadowDensity"                  guiGroup="Shadow"  guiName="ShadowDensity"                default="0" min="0"                     guiWidget="slider" guiMax="1"/>
+    <uniform name="uvwScaleEnabled"         guiGroup="Global"  guiName="UV Scale Enabled"      default="false"                            guiWidget="checkbox" />
+</glslfx>
